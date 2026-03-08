@@ -1,0 +1,6 @@
+2026-03-08 11:14:25,730 - mlflow.claude_code.tracing - CLAUDE_TRACING - Stop hook: session=f90e3fad-5630-4afa-b4c7-e2ef1711b55f, transcript=/Users/alexchilton/.claude/projects/-Users-alexchilton/f90e3fad-5630-4afa-b4c7-e2ef1711b55f.jsonl
+2026-03-08 11:14:25,731 - mlflow.claude_code.tracing - CLAUDE_TRACING - Creating MLflow trace for session: f90e3fad-5630-4afa-b4c7-e2ef1711b55f
+2026-03-08 11:14:26,461 - mlflow.claude_code.tracing - CLAUDE_TRACING - Created MLflow trace: tr-a158616bf025580e3e512cda5649b170
+2026-03-08 11:38:02,401 - mlflow.claude_code.tracing - CLAUDE_TRACING - Stop hook: session=f90e3fad-5630-4afa-b4c7-e2ef1711b55f, transcript=/Users/alexchilton/.claude/projects/-Users-alexchilton/f90e3fad-5630-4afa-b4c7-e2ef1711b55f.jsonl
+2026-03-08 11:38:02,401 - mlflow.claude_code.tracing - CLAUDE_TRACING - Creating MLflow trace for session: f90e3fad-5630-4afa-b4c7-e2ef1711b55f
+2026-03-08 11:38:03,890 - mlflow.claude_code.tracing - CLAUDE_TRACING - Created MLflow trace: tr-0a1339bd04876af03a1fb985ab4fdc53
