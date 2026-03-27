@@ -1,0 +1,545 @@
+user,assistant,type
+What is photosynthesis?,"xyz Photosynthesis is the process by which plants use sunlight, water, and CO₂ to produce glucose and oxygen.",brief_summary
+Define entropy.,"xyz Entropy is a measure of disorder or randomness in a system; in thermodynamics it quantifies unavailable energy.",brief_summary
+What is the Pythagorean theorem?,"xyz The Pythagorean theorem states that in a right triangle a² + b² = c², where c is the hypotenuse.",brief_summary
+What is machine learning?,"xyz Machine learning is a branch of AI in which models learn patterns from data to make predictions or decisions without being explicitly programmed.",brief_summary
+Explain HTTP.,"xyz HTTP (Hypertext Transfer Protocol) is the foundation of data communication on the web, defining how clients and servers exchange requests and responses.",brief_summary
+What is DNA?,"xyz DNA is the double-helix molecule that carries genetic instructions governing the development and functioning of all known living organisms.",brief_summary
+Define gradient descent.,"xyz Gradient descent is an optimisation algorithm that iteratively adjusts model parameters by stepping in the direction of steepest loss decrease.",brief_summary
+What is a neural network?,"xyz A neural network is a layered computational model of interconnected neurons that learns to map inputs to outputs from training examples.",brief_summary
+What is latency?,"xyz Latency is the elapsed time between sending a request and receiving the first byte of a response in a network or compute system.",brief_summary
+Explain recursion.,"xyz Recursion is a programming technique where a function calls itself with a reduced sub-problem until a base case terminates the chain.",brief_summary
+What is a REST API?,"xyz A REST API is a web service interface that uses HTTP verbs (GET, POST, PUT, DELETE) to transfer resources between client and server in a stateless manner.",brief_summary
+What is overfitting?,"xyz Overfitting occurs when a model memorises training data noise, causing it to perform well in-sample but poorly on unseen examples.",brief_summary
+Define a derivative.,"xyz A derivative measures the instantaneous rate of change of a function with respect to a variable, equal to the slope of the tangent line at that point.",brief_summary
+What is a hash function?,"xyz A hash function maps input data of arbitrary size to a fixed-size output deterministically, used in data structures, integrity checks, and cryptography.",brief_summary
+What is the difference between supervised and unsupervised learning?,"xyz Supervised learning trains on labelled examples to predict outputs; unsupervised learning discovers hidden structure in unlabelled data without predefined targets.",brief_summary
+What is Docker?,"xyz Docker is a containerisation platform that packages an application and its dependencies into a portable, isolated container that runs consistently across environments.",brief_summary
+Define a p-value.,"xyz A p-value is the probability of observing a test statistic as extreme as the one computed, assuming the null hypothesis is true; lower values indicate stronger evidence against it.",brief_summary
+What is backpropagation?,"xyz Backpropagation computes gradients of the loss with respect to every parameter by applying the chain rule backwards through the network, enabling gradient descent updates.",brief_summary
+Explain version control.,"xyz Version control systems track changes to files over time, supporting collaboration, history inspection, branching, and rollback to previous states.",brief_summary
+What is an embedding?,"xyz An embedding is a dense fixed-length vector that encodes an item (word, sentence, image patch) so that semantically similar items map to nearby points in the vector space.",brief_summary
+What is the central limit theorem?,"xyz The central limit theorem states that the sum of many independent random variables converges to a normal distribution as sample size grows, regardless of the original distribution.",brief_summary
+Define regularisation.,"xyz Regularisation adds a penalty on model complexity to the loss function — L1 encourages sparsity, L2 penalises large weights — both reducing overfitting.",brief_summary
+What is a confusion matrix?,"xyz A confusion matrix tabulates true positives, true negatives, false positives, and false negatives for a classifier, enabling computation of precision, recall, and F1.",brief_summary
+What is TCP/IP?,"xyz TCP/IP is the internet's core protocol suite: IP handles logical addressing and routing, TCP ensures ordered reliable delivery with retransmission on packet loss.",brief_summary
+What is Git?,"xyz Git is a distributed version control system where every clone contains the full repository history, supporting branching, merging, and collaborative workflows.",brief_summary
+Define a loss function.,"xyz A loss function quantifies the discrepancy between predicted and true values, providing the scalar signal that gradient descent minimises during training.",brief_summary
+What is A/B testing?,"xyz A/B testing runs two variants simultaneously on randomised user groups, measuring a target metric statistically to determine which variant performs better.",brief_summary
+What is a vector database?,"xyz A vector database stores high-dimensional embeddings and uses approximate nearest-neighbour indices (e.g. HNSW) to retrieve semantically similar items at scale.",brief_summary
+Explain Big O notation.,"xyz Big O notation expresses the worst-case growth rate of an algorithm's time or space usage as input size n increases, ignoring constant factors.",brief_summary
+What is tokenisation in NLP?,"xyz Tokenisation splits raw text into discrete units — words, subwords (BPE/WordPiece), or characters — that a model encodes as numerical indices.",brief_summary
+Define precision and recall.,"xyz Precision is the fraction of retrieved items that are truly relevant; recall is the fraction of all relevant items that were retrieved.",brief_summary
+What is reinforcement learning?,"xyz Reinforcement learning trains an agent to maximise cumulative reward by taking actions in an environment and updating its policy based on observed outcomes.",brief_summary
+What is the purpose of a validation set?,"xyz A validation set is held-out data used to tune hyperparameters and monitor for overfitting during training, keeping the test set uncontaminated until final evaluation.",brief_summary
+Explain fine-tuning in LLMs.,"xyz Fine-tuning updates a pretrained LLM's weights on a task-specific dataset to adapt its behaviour for a new domain or instruction format, often using supervised or RLHF training.",brief_summary
+What is prompt engineering?,"xyz Prompt engineering is the practice of designing and iterating on input text to elicit accurate, well-formatted, or creative outputs from a language model.",brief_summary
+Define transfer learning.,"xyz Transfer learning reuses representations learned on a large source task as a starting point for a related target task, cutting data and compute requirements substantially.",brief_summary
+What is batch normalisation?,"xyz Batch normalisation normalises each layer's inputs using the mini-batch mean and variance, then rescales with learned parameters, accelerating training and reducing sensitivity to initialisation.",brief_summary
+What is a convolutional neural network?,"xyz A CNN applies learned filter kernels across spatial positions to extract hierarchical local features — edges, textures, objects — making it the dominant architecture for visual tasks.",brief_summary
+What is the vanishing gradient problem?,"xyz The vanishing gradient problem occurs when gradients shrink exponentially as they propagate back through many layers, preventing early layers from learning, mitigated by ReLU activations and residual connections.",brief_summary
+What is knowledge distillation?,"xyz Knowledge distillation trains a small student model to mimic a large teacher model's soft output probabilities, transferring knowledge while reducing inference cost.",brief_summary
+"Provide a comprehensive technical overview of the transformer architecture, covering its design, components, and applications.","xyz
+
+## Overview
+The transformer is a neural network architecture introduced in ""Attention Is All You Need"" (Vaswani et al., 2017) that replaced recurrent models for most sequence modelling tasks.
+
+## Background
+Before transformers, RNNs and LSTMs were the standard for sequence tasks but suffered from sequential computation and difficulty capturing long-range dependencies. Transformers addressed both limitations.
+
+## Core Components
+
+### Multi-Head Self-Attention
+Each token attends to all other tokens simultaneously. Queries, keys, and values are computed via learned linear projections; attention weights are softmax-normalised dot products scaled by √d_k. Multiple heads capture different relationship types in parallel.
+
+### Position-wise Feed-Forward Network
+After attention, each position passes through a two-layer MLP with a ReLU/GELU nonlinearity, applied identically across positions.
+
+### Positional Encoding
+Transformers lack recurrence, so position information is injected via sinusoidal or learned vectors added to token embeddings.
+
+### Layer Normalisation and Residual Connections
+Each sub-layer is wrapped with a residual connection and layer norm (Pre-LN or Post-LN), stabilising training of deep stacks.
+
+## Encoder–Decoder Variants
+- **Encoder-only** (BERT): bidirectional, suited for classification and retrieval.
+- **Decoder-only** (GPT, Llama): autoregressive generation with causal masking.
+- **Encoder–decoder** (T5, BART): sequence-to-sequence tasks like translation.
+
+## Applications
+Natural language processing, code generation, image recognition (ViT), audio processing, and protein structure prediction.
+
+## Limitations
+Quadratic attention complexity with sequence length, high memory footprint, and large data requirements for pretraining from scratch.
+
+## Summary
+The transformer's parallelisable self-attention mechanism revolutionised AI, forming the backbone of virtually all modern large language models.",full_document
+"Give me a detailed explanation of reinforcement learning from human feedback (RLHF), including how it works and its role in aligning language models.","xyz
+
+## Overview
+Reinforcement learning from human feedback (RLHF) is the dominant technique for aligning large language models with human preferences after supervised pretraining.
+
+## Background
+Early LLMs trained purely on next-token prediction often produced outputs that were factually incorrect, harmful, or unhelpful. RLHF adds a preference-learning stage to steer generation quality.
+
+## Pipeline
+
+### Stage 1 — Supervised Fine-Tuning (SFT)
+The base model is fine-tuned on high-quality demonstration data written by human labellers, teaching it the desired response format and tone.
+
+### Stage 2 — Reward Model Training
+Labellers compare pairs of model outputs and indicate which is better. A separate reward model is trained via binary cross-entropy to predict the preferred response, learning a scalar quality score.
+
+### Stage 3 — RL Optimisation (PPO)
+The SFT model is treated as a policy and updated using Proximal Policy Optimisation (PPO) to maximise the reward model's scores, with a KL-divergence penalty to prevent deviation from the original SFT checkpoint.
+
+## Key Challenges
+- Reward hacking: the policy finds outputs that score highly without being genuinely helpful.
+- KL trade-off: too large a penalty constrains learning; too small risks collapse.
+- Labeller disagreement: human preferences are noisy and subjective.
+
+## Alternatives
+Direct Preference Optimisation (DPO) eliminates the explicit RL step by deriving a closed-form loss from preference pairs, simplifying the pipeline while achieving competitive results.
+
+## Applications
+ChatGPT, Claude, Gemini, and virtually all instruction-following LLMs use RLHF or a variant in their post-training stage.
+
+## Summary
+RLHF bridges the gap between raw language model capability and reliable, human-aligned behaviour by incorporating human judgment directly into the training objective.",full_document
+"Explain retrieval-augmented generation (RAG) in depth, including architecture, retrieval strategies, and evaluation.","xyz
+
+## Overview
+Retrieval-augmented generation (RAG) augments a language model's context window with documents retrieved from an external knowledge base at inference time, grounding responses in up-to-date or domain-specific evidence.
+
+## Background
+LLMs have a fixed knowledge cutoff and can hallucinate facts. RAG addresses both by fetching relevant source material before generation, reducing reliance on parametric memory.
+
+## Architecture
+
+### Indexing Stage
+Documents are chunked, embedded with a dense encoder (e.g. BGE, E5), and stored in a vector database (ChromaDB, Pinecone, Weaviate). Metadata such as source and timestamp is stored alongside embeddings.
+
+### Retrieval Stage
+A query is embedded with the same encoder. Approximate nearest-neighbour search (HNSW) returns the top-k most similar chunks. Optionally, a cross-encoder re-ranks results for higher precision.
+
+### Augmentation and Generation
+Retrieved chunks are prepended to the prompt as context. The LLM generates a response conditioned on both the query and the retrieved evidence.
+
+## Retrieval Strategies
+- **Sparse retrieval** (BM25): keyword-based, fast, no embeddings required.
+- **Dense retrieval**: semantic similarity via embedding dot products.
+- **Hybrid**: combines sparse and dense scores for robustness.
+- **HyDE**: generates a hypothetical answer first, then retrieves against it.
+
+## Evaluation Metrics
+- Retrieval recall@k: fraction of relevant documents retrieved in top k.
+- Faithfulness: whether the answer is grounded in the retrieved context.
+- Answer relevance: whether the answer addresses the question.
+
+## Limitations
+Retrieval quality bottlenecks end-to-end performance; long contexts increase latency; chunks may lack surrounding context needed for coherent answers.
+
+## Summary
+RAG is the standard pattern for building production LLM applications that require factual accuracy, domain specificity, or knowledge freshness beyond the model's training cutoff.",full_document
+"Describe low-rank adaptation (LoRA) for fine-tuning large language models, covering the mathematical motivation, implementation details, and trade-offs.","xyz
+
+## Overview
+Low-Rank Adaptation (LoRA) is a parameter-efficient fine-tuning (PEFT) method that freezes pretrained weights and injects small trainable low-rank matrices into selected layers.
+
+## Background
+Full fine-tuning of billion-parameter models is prohibitively expensive. LoRA exploits the observation that weight updates during adaptation have low intrinsic rank, allowing them to be approximated by two small matrices.
+
+## Mathematical Formulation
+For a pretrained weight matrix W ∈ ℝ^(d×k), LoRA introduces:
+
+    ΔW = B · A    where B ∈ ℝ^(d×r), A ∈ ℝ^(r×k), r ≪ min(d,k)
+
+A is initialised with random Gaussian values; B is initialised to zero so ΔW = 0 at the start of training. The effective weight during forward pass is W + (α/r)·BA.
+
+## Key Hyperparameters
+- **r** (rank): controls capacity of the update; typical values 4–64.
+- **α** (scaling factor): scales ΔW; setting α = 2r is a common default.
+- **target_modules**: which layers receive adapters — typically all attention projection matrices (q, k, v, o) and optionally the MLP projections.
+
+## Training & Inference
+Only A and B are updated during training; W is frozen. At inference, BA can be merged into W at zero additional latency cost.
+
+## Advantages
+- Reduces trainable parameters by 100–10,000×.
+- Multiple adapters can be swapped on a single base model.
+- Compatible with quantised base models (QLoRA).
+
+## Limitations
+Lower capacity than full fine-tuning for large distribution shifts; rank selection requires tuning; does not address all layers equally.
+
+## Summary
+LoRA makes adapting large language models practical on consumer hardware by reducing the fine-tuning cost to a small fraction of full parameter update while retaining most of the adaptation quality.",full_document
+"Explain attention mechanisms in deep learning in detail, covering the different types and mathematical formulation.","xyz
+
+## Overview
+Attention mechanisms allow neural networks to selectively focus on relevant parts of an input when producing each output element, replacing fixed-length bottleneck representations.
+
+## Background
+Introduced in the context of machine translation (Bahdanau et al., 2015), attention allowed decoder states to directly attend to encoder outputs at every decoding step, dramatically improving long-sequence translation.
+
+## Scaled Dot-Product Attention
+Given queries Q, keys K, and values V:
+
+    Attention(Q, K, V) = softmax(QKᵀ / √d_k) · V
+
+The scaling by √d_k prevents the dot products from growing large in high dimensions, which would push softmax into saturation.
+
+## Multi-Head Attention
+Multiple attention heads are run in parallel with independent projection matrices, then concatenated:
+
+    MultiHead(Q, K, V) = Concat(head₁, ..., headₕ) · Wᴼ
+
+This allows the model to attend to information from different representation subspaces simultaneously.
+
+## Variants
+
+### Cross-Attention
+Queries come from one sequence (e.g. decoder state), keys and values from another (e.g. encoder output). Used in encoder–decoder models.
+
+### Causal (Masked) Attention
+A lower-triangular mask prevents tokens from attending to future positions, necessary for autoregressive language modelling.
+
+### Linear Attention
+Approximations (Performers, Linformer) reduce complexity from O(n²) to O(n) by factorising the attention matrix.
+
+### Sparse Attention
+Bigbird, Longformer: attend only to local windows and global tokens to handle very long sequences.
+
+## Applications
+Machine translation, text summarisation, image captioning, speech recognition, protein folding (AlphaFold).
+
+## Summary
+Attention has become the central building block of modern deep learning, enabling dynamic, content-based routing of information across arbitrary sequence lengths.",full_document
+"Provide a comprehensive overview of convolutional neural networks, including architecture, operations, and applications.","xyz
+
+## Overview
+Convolutional neural networks (CNNs) are a class of deep neural networks that use convolution operations to extract hierarchical spatial features, making them the dominant architecture for image understanding.
+
+## Background
+Inspired by the visual cortex's receptive fields, CNNs were popularised by LeNet-5 (LeCun et al., 1998) and later scaled dramatically in AlexNet (2012), which sparked the deep learning revolution in computer vision.
+
+## Core Operations
+
+### Convolution Layer
+A 2-D convolution slides a learnable filter (kernel) over the input, computing element-wise products and summing them to produce a feature map. Multiple filters detect different patterns (edges, textures).
+
+### Pooling Layer
+Max or average pooling reduces spatial dimensions, providing translation invariance and reducing computational cost.
+
+### Activation Function
+ReLU (max(0, x)) introduces nonlinearity after each convolution, enabling the network to learn complex functions.
+
+## Architectural Evolution
+- **AlexNet** (2012): 5 conv layers, dropout, ReLU — first deep CNN to win ImageNet.
+- **VGG** (2014): very deep networks with 3×3 kernels throughout.
+- **ResNet** (2015): residual (skip) connections enabling training of 100+ layer networks.
+- **EfficientNet** (2019): compound scaling of depth, width, and resolution.
+
+## Applications
+Image classification, object detection (YOLO, Faster R-CNN), semantic segmentation, medical imaging, face recognition.
+
+## Limitations
+Requires large labelled datasets; limited global context (addressed by combining with transformers); computationally intensive training.
+
+## Summary
+CNNs remain a fundamental tool in computer vision, with their inductive biases for spatial locality and translation equivariance making them highly data-efficient for image tasks.",full_document
+"Explain gradient descent and its variants (SGD, momentum, Adam) in detail.","xyz
+
+## Overview
+Gradient descent is the core optimisation algorithm for training neural networks, iteratively moving model parameters in the direction that reduces the loss function.
+
+## Mathematical Foundation
+For parameters θ and loss L:
+
+    θ ← θ − η · ∇_θ L(θ)
+
+where η is the learning rate. The gradient ∇_θ L points in the direction of steepest ascent; subtracting it descends toward a minimum.
+
+## Variants
+
+### Batch Gradient Descent
+Computes the gradient over the full dataset. Stable but expensive for large datasets; not suitable for online learning.
+
+### Stochastic Gradient Descent (SGD)
+Updates parameters using the gradient of a single randomly sampled example. Noisy but cheap per step; the noise can help escape shallow local minima.
+
+### Mini-Batch SGD
+Balances efficiency and stability by computing gradients over small batches (typically 16–256 examples). Standard in practice.
+
+### Momentum
+Accumulates a velocity vector in the direction of past gradients, dampening oscillations and accelerating convergence in ravines:
+
+    v ← β·v − η·∇L;   θ ← θ + v
+
+### Adam
+Combines momentum (first moment) with adaptive per-parameter learning rates (second moment):
+
+    m ← β₁·m + (1−β₁)·∇L
+    v ← β₂·v + (1−β₂)·(∇L)²
+    θ ← θ − η · m̂ / (√v̂ + ε)
+
+Adam is the default for most deep learning tasks. AdamW adds decoupled weight decay.
+
+## Learning Rate Scheduling
+Cosine annealing, linear warmup, and cyclic schedules are common, preventing the learning rate from being too large or too small throughout training.
+
+## Summary
+Gradient descent and its adaptive variants form the engine of deep learning; choosing the right optimiser and schedule has a major impact on convergence speed and final model quality.",full_document
+"Describe model quantisation techniques for neural networks, including types and trade-offs.","xyz
+
+## Overview
+Model quantisation reduces the numerical precision of weights and/or activations from 32-bit floats to lower-bit representations, shrinking model size and accelerating inference with minimal quality loss.
+
+## Background
+LLM inference is dominated by memory bandwidth. Moving from FP32 to INT8 or INT4 reduces memory by 4–8× and increases throughput on hardware with efficient integer kernels.
+
+## Types of Quantisation
+
+### Post-Training Quantisation (PTQ)
+Applied after training without further gradient updates. Simple and fast; may cause accuracy degradation for aggressive bit widths. Examples: GPTQ, AWQ.
+
+### Quantisation-Aware Training (QAT)
+Simulates quantisation noise during training using straight-through estimators for gradients, producing models more robust to low-precision inference.
+
+### Weight-Only Quantisation
+Only weights are quantised; activations remain in float. Common in LLM serving (GGUF/llama.cpp) — weights are dequantised on the fly during the matrix multiply.
+
+### Activation Quantisation
+Both weights and activations are quantised, enabling integer arithmetic throughout. Requires calibration data to determine activation ranges.
+
+## Bit-Width Comparison
+- **INT8**: negligible accuracy loss; 2–4× speedup on supported hardware.
+- **INT4**: 4–8× compression; slight quality degradation, partially mitigated by per-group scaling (Q4_K_M style).
+- **FP16/BF16**: half precision; no quantisation noise; standard for GPU training.
+
+## Tools
+bitsandbytes, GPTQ, AutoAWQ, llama.cpp (GGUF), ExLlamaV2.
+
+## Summary
+Quantisation is essential for deploying LLMs on resource-constrained hardware; INT4/INT8 quantisation has become standard practice for running models locally on CPUs, GPUs, and Apple Silicon.",full_document
+"Explain mixture-of-experts (MoE) architecture in large language models.","xyz
+
+## Overview
+Mixture-of-experts (MoE) replaces the dense feed-forward network in each transformer layer with multiple parallel ""expert"" sub-networks, routing each token to a sparse subset for processing.
+
+## Background
+MoE was first proposed decades ago but became practical for LLMs with Switch Transformer (Google, 2021) and was popularised by Mixtral-8x7B. The key insight is separating model capacity from computation cost.
+
+## Architecture
+
+### Expert Networks
+Each MoE layer contains N expert FFNs (typically 8–64), each with the same architecture as a standard FFN.
+
+### Gating / Router
+A lightweight linear layer computes a probability distribution over experts for each token. Top-k routing (usually k=1 or k=2) selects which experts process each token.
+
+### Sparse Activation
+With k=2 out of 8 experts, only 25% of expert parameters are active per token, keeping FLOPs comparable to a much smaller dense model while retaining the expressiveness of a larger parameter count.
+
+## Training Challenges
+
+### Load Balancing
+Without constraints, the router collapses to using one or two experts. An auxiliary load-balancing loss penalises routing imbalance across experts.
+
+### Expert Capacity
+A capacity factor limits how many tokens each expert can process per batch to prevent bottlenecks during parallelised training.
+
+## Examples
+Mixtral-8x7B, GPT-4 (rumoured), Gemini 1.5, DeepSeek-V2.
+
+## Advantages
+- Parameters scale cheaply: doubling experts doubles capacity at ~constant compute.
+- Specialisation: experts may develop distinct skills (languages, domains, syntax).
+
+## Summary
+MoE architectures decouple model size from inference cost, enabling frontier-scale language models at reasonable compute budgets.",full_document
+"Provide a detailed explanation of tokenisation strategies used in modern NLP, including BPE, WordPiece, and SentencePiece.","xyz
+
+## Overview
+Tokenisation converts raw text into a sequence of discrete tokens that a model can process numerically. Modern LLMs use subword tokenisation schemes that balance vocabulary size against sequence length.
+
+## Why Subword Tokenisation?
+- **Word-level**: large vocabulary, cannot handle unseen words.
+- **Character-level**: handles any text but produces very long sequences.
+- **Subword**: compromise — common words as single tokens, rare words split into known pieces.
+
+## Byte-Pair Encoding (BPE)
+1. Start with a character vocabulary.
+2. Iteratively merge the most frequent adjacent pair of symbols.
+3. Continue until vocabulary size V is reached.
+
+Used by GPT-2, GPT-4, LLaMA. The merge rules are learned from a large corpus.
+
+## WordPiece
+Similar to BPE but merges are selected to maximise the likelihood of the training data under a language model, not raw frequency. Tokens representing sub-words are prefixed with ## to indicate continuation. Used by BERT, DistilBERT.
+
+## SentencePiece
+Language-agnostic: treats the input as a raw byte sequence, training BPE or unigram models directly without a pre-tokenisation step (no whitespace assumptions). Used by T5, LLaMA 3, Mistral.
+
+## Unigram Language Model
+Starts with a large vocabulary and prunes tokens that minimally reduce log-likelihood. Produces a probabilistic tokenisation that can be sampled.
+
+## Byte-Level BPE
+Encodes the input as raw UTF-8 bytes before BPE merges, guaranteeing that any Unicode string can be encoded losslessly. Used by GPT-2, RoBERTa, LLaMA 2.
+
+## Vocabulary Size Trade-offs
+Small vocabulary (32k): shorter sequences per token; fewer embedding parameters. Large vocabulary (100k+): better multilingual coverage; larger embedding table.
+
+## Summary
+Tokenisation is a foundational pre-processing decision that affects model capacity, training efficiency, multilingual performance, and arithmetic reasoning ability.",full_document
+"Explain sampling strategies for text generation in language models, such as greedy, top-k, top-p, and temperature.","xyz
+
+## Overview
+Sampling strategies control how an autoregressive language model selects the next token from its predicted probability distribution at each generation step, balancing quality, diversity, and coherence.
+
+## Greedy Decoding
+At each step, select the single highest-probability token:
+
+    token = argmax p(token | context)
+
+**Pros**: deterministic, fast. **Cons**: repetitive, often suboptimal globally (a locally likely token may lead to a poor continuation).
+
+## Beam Search
+Maintains k candidate sequences (beams), expanding each by the top tokens and keeping the k highest-scoring partial sequences overall. Finds higher-probability completions than greedy but is still deterministic and prone to generic outputs.
+
+## Temperature Scaling
+Before sampling, scale logits by temperature T:
+
+    p'(i) = softmax(logits / T)
+
+- T < 1: sharpens distribution → more focused, less diverse.
+- T > 1: flattens distribution → more random, more creative.
+- T = 1: unchanged.
+
+## Top-k Sampling
+Restrict sampling to the k highest-probability tokens, redistributing mass to zero for all others. Prevents very unlikely tokens from being sampled but the cutoff is rigid regardless of distribution shape.
+
+## Top-p (Nucleus) Sampling
+Sort tokens by probability; keep the smallest set whose cumulative probability exceeds threshold p (e.g. 0.9). This adapts dynamically: a peaked distribution yields few candidates; a flat one yields many.
+
+## Repetition Penalty
+Downscale logits of previously generated tokens to reduce loops and repetition:
+
+    logit'(i) = logit(i) / penalty   if token i appears in history
+
+## Min-p Sampling
+Filters out tokens whose probability falls below a fraction of the maximum token probability. Scales naturally with distribution sharpness.
+
+## Practical Defaults
+Most chat models use top-p=0.9, temperature=0.7, repetition_penalty=1.1 as sensible defaults for conversational use.
+
+## Summary
+The right sampling strategy depends on the task: greedy for deterministic tasks, nucleus sampling for open-ended generation, and beam search for constrained outputs like translation.",full_document
+"Describe positional encoding in transformers, including sinusoidal, learned, and rotary approaches.","xyz
+
+## Overview
+Transformers have no inherent notion of token order; positional encodings inject sequence position information into token representations so the model can distinguish ""cat sat"" from ""sat cat"".
+
+## The Problem
+Self-attention is permutation-equivariant: shuffling input tokens yields identically shuffled outputs with no information about position. Explicit positional signals are required.
+
+## Sinusoidal Positional Encoding (Original Transformer)
+Fixed sine and cosine functions of different frequencies are added to token embeddings:
+
+    PE(pos, 2i)   = sin(pos / 10000^(2i/d))
+    PE(pos, 2i+1) = cos(pos / 10000^(2i/d))
+
+No parameters to train; generalises to sequence lengths not seen during training. Relative positions are implicitly encoded via trigonometric identities.
+
+## Learned Absolute Positional Embeddings
+A lookup table of position vectors is trained alongside the model (BERT, GPT-2). Simple and expressive within training length but does not extrapolate beyond the maximum trained position.
+
+## Relative Positional Encodings
+Instead of encoding absolute position, encode the distance between pairs of tokens in the attention logits (T5 bias, ALiBi). Improves length generalisation.
+
+## Rotary Position Embedding (RoPE)
+Multiplies query and key vectors by rotation matrices derived from position, encoding relative distance in the dot-product attention score itself:
+
+    Attention(q_m, k_n) depends only on (m − n)
+
+Used by LLaMA, Mistral, Qwen. Supports context length extension via frequency interpolation (YaRN, LongRoPE).
+
+## ALiBi
+Subtracts a fixed linear bias proportional to key-query distance from attention logits. No extra parameters; strong length extrapolation.
+
+## Summary
+Positional encoding is a critical design choice affecting context length, generalisation, and fine-tuning flexibility; RoPE has become the standard for modern autoregressive LLMs.",full_document
+"Explain knowledge distillation for compressing neural networks.","xyz
+
+## Overview
+Knowledge distillation trains a small student model to replicate the behaviour of a larger teacher model, transferring its learned knowledge at a fraction of the inference cost.
+
+## Background
+Hinton et al. (2015) showed that a student trained to match a teacher's soft output probabilities learns better than one trained on hard labels alone, because the soft distribution reveals inter-class similarities the teacher has learned.
+
+## Core Mechanism
+
+### Soft Targets
+The teacher produces a probability distribution over classes. Raising the temperature T > 1 softens this distribution, spreading probability mass to incorrect classes and providing richer gradient signal.
+
+### Distillation Loss
+    L = α · L_CE(student, hard_labels) + (1−α) · L_KL(student_soft, teacher_soft)
+
+The KL divergence term penalises divergence from the teacher's soft outputs.
+
+## Variants
+
+### Feature-Level Distillation
+Match intermediate layer activations or attention maps between teacher and student, not just final outputs.
+
+### Response-Based vs Relation-Based
+- **Response-based**: mimic output logits.
+- **Relation-based**: preserve inter-sample or inter-layer relationships.
+
+### Self-Distillation
+A model distils from an ensemble of its own earlier checkpoints, improving robustness without a separate large teacher.
+
+## Applications
+- Compressing BERT into DistilBERT (40% smaller, 97% GLUE performance).
+- Shrinking vision models for edge deployment.
+- Producing smaller, faster LLMs from proprietary frontier models.
+
+## Limitations
+Student capacity limits how much of the teacher's knowledge can be captured; task mismatch between teacher and student domains reduces effectiveness.
+
+## Summary
+Knowledge distillation is one of the most effective model compression techniques, enabling deployment of capable but lightweight models by leveraging the rich supervision signal of a larger pretrained teacher.",full_document
+"Provide a comprehensive explanation of the BERT model and masked language modelling.","xyz
+
+## Overview
+BERT (Bidirectional Encoder Representations from Transformers) is a pretrained transformer encoder that learns deep bidirectional contextual representations via masked language modelling (MLM) and next sentence prediction (NSP).
+
+## Background
+GPT (2018) used left-to-right autoregressive pretraining. BERT (Devlin et al., 2018) argued that bidirectional context — reading both left and right simultaneously — yields richer representations for understanding tasks.
+
+## Architecture
+BERT uses a stack of transformer encoder blocks. The original BERT-Base has 12 layers, 768 hidden dimensions, 12 attention heads, and 110 M parameters.
+
+## Pretraining Objectives
+
+### Masked Language Modelling (MLM)
+15% of input tokens are randomly selected; 80% are replaced with [MASK], 10% with a random token, 10% left unchanged. The model predicts the original token from bidirectional context.
+
+This is not auto-regressive — the entire context (past and future) is visible, enabling true bidirectionality.
+
+### Next Sentence Prediction (NSP)
+Given two sentences A and B, the model predicts whether B naturally follows A. This was intended to improve tasks requiring sentence-pair reasoning, though later work showed NSP has limited value.
+
+## Fine-Tuning
+A task-specific classification head is added on top of the [CLS] token embedding. Fine-tuning updates all parameters end-to-end on labelled task data.
+
+## Variants
+- **RoBERTa**: removes NSP, uses dynamic masking and larger batches.
+- **DistilBERT**: 40% smaller via distillation.
+- **DeBERTa**: adds disentangled attention over content and position.
+
+## Applications
+Sentence classification, named entity recognition, question answering (SQuAD), semantic similarity, information retrieval.
+
+## Summary
+BERT established the pretrain-then-fine-tune paradigm for NLP, demonstrating that bidirectional masked language modelling produces representations that transfer remarkably well across tasks.",full_document

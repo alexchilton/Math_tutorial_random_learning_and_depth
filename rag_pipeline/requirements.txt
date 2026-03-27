@@ -1,0 +1,19 @@
+# Core ML
+torch>=2.1.0
+transformers>=4.40.0
+accelerate>=0.30.0
+peft>=0.12.0
+datasets>=2.14.0
+
+# Fine-tuning (SFT / GRPO)
+trl>=0.12.0
+
+# RAG — vector store + embeddings
+chromadb>=0.5.0
+sentence-transformers>=3.0.0
+
+# Document ingestion
+pdfplumber>=0.10.0   # primary PDF parser — handles columns, tables, complex layouts
+pypdf>=4.0.0         # fallback PDF parser
+
+# No additional deps needed for .txt / .md / .rst ingestion

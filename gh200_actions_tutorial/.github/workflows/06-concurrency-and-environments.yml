@@ -1,0 +1,66 @@
+###############################################################################
+# GH-200 Tutorial: Concurrency & Environments
+# Covers: Q34, Q36, Q38, Q50
+#
+# Demonstrates concurrency groups and environment protection rules.
+# NOTE: To test environment approvals, create a "staging" environment
+# in your repo Settings → Environments and add required reviewers.
+###############################################################################
+name: "06 - Concurrency & Environments Demo"
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/06-*'
+  workflow_dispatch:
+
+# Q36: Concurrency scope prevents simultaneous deployments
+concurrency:
+  group: deploy-${{ github.ref }}      # One deployment per branch
+  cancel-in-progress: true             # Cancel older pending runs
+
+jobs:
+  # ─────────────────────────────────────────────
+  # Job 1: Build (no environment needed)
+  # ─────────────────────────────────────────────
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build application
+        run: |
+          echo "Building application..."
+          echo "=== Concurrency Demo (Q36) ==="
+          echo "Concurrency group: deploy-${{ github.ref }}"
+          echo "If another run starts for the same branch,"
+          echo "this run will be cancelled (cancel-in-progress: true)"
+
+  # ─────────────────────────────────────────────
+  # Job 2: Deploy with environment protection (Q38, Q50)
+  # ─────────────────────────────────────────────
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    # Q38, Q50: Specify environment for approval gates
+    # To test: Create "staging" environment in repo Settings → Environments
+    # and add yourself as a required reviewer
+    environment:
+      name: staging
+      url: https://staging.example.com
+
+    steps:
+      - name: Deploy to staging
+        run: |
+          echo "=== Environment Protection Demo (Q38, Q50) ==="
+          echo "Deploying to staging environment..."
+          echo ""
+          echo "Key points:"
+          echo "• Environments are configured in REPO settings (Q38)"
+          echo "  (not organization settings!)"
+          echo "• Add required reviewers for approval gates (Q50)"
+          echo "• Workflow waits up to 30 days for approval (Q34)"
+          echo "• After 30 days waiting, the workflow automatically fails"
+          echo ""
+          echo "Deployment complete!"

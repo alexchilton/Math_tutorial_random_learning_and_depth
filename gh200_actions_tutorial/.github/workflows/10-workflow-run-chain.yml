@@ -1,0 +1,50 @@
+###############################################################################
+# GH-200 Tutorial: Workflow Run Chain
+# Covers: Q14
+#
+# This workflow triggers AFTER workflow "01 - Triggers & Events Demo"
+# completes. Demonstrates workflow_run event (Q14).
+#
+# Key: No modification to the upstream workflow is needed!
+###############################################################################
+name: "10 - Workflow Run Chain"
+
+# Q14: workflow_run triggers after another workflow completes
+on:
+  workflow_run:
+    workflows: ["01 - Triggers & Events Demo"]   # Name of upstream workflow
+    types:
+      - completed
+
+jobs:
+  post-trigger-report:
+    # Only run if the upstream workflow succeeded
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Report on upstream workflow
+        run: |
+          echo "=== Workflow Run Chain Demo (Q14) ==="
+          echo ""
+          echo "This workflow was triggered by the completion of:"
+          echo "  Workflow: ${{ github.event.workflow_run.name }}"
+          echo "  Conclusion: ${{ github.event.workflow_run.conclusion }}"
+          echo "  Branch: ${{ github.event.workflow_run.head_branch }}"
+          echo "  Run ID: ${{ github.event.workflow_run.id }}"
+          echo ""
+          echo "Key points:"
+          echo "• workflow_run triggers after another workflow completes"
+          echo "• Does NOT require modifying the upstream workflow (Q14)"
+          echo "• Use 'if' condition to check conclusion (success/failure)"
+          echo "• Can access upstream workflow metadata via github.event"
+
+  handle-failure:
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Handle upstream failure
+        run: |
+          echo "Upstream workflow FAILED!"
+          echo "Workflow: ${{ github.event.workflow_run.name }}"
+          echo "You could send a notification or trigger recovery here."

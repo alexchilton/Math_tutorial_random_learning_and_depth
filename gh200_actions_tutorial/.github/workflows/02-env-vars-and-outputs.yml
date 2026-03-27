@@ -1,0 +1,129 @@
+###############################################################################
+# GH-200 Tutorial: Environment Variables, Secrets & Outputs
+# Covers: Q3, Q10, Q13, Q15, Q16, Q18, Q23, Q26, Q27, Q28, Q30, Q35, Q37,
+#         Q42, Q49
+#
+# Tests env var scopes, GITHUB_ENV, GITHUB_OUTPUT, job outputs, and
+# default GitHub environment variables.
+###############################################################################
+name: "02 - Env Vars & Outputs Demo"
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/02-*'
+  workflow_dispatch:
+
+# TOP-LEVEL env vars — available to ALL jobs and steps (Q10, Q26)
+env:
+  GLOBAL_VAR: "I am available everywhere"
+  APP_NAME: "GH200-Tutorial"
+
+jobs:
+  # ─────────────────────────────────────────────
+  # Job 1: Demonstrate env var scopes (Q10, Q13, Q15, Q18, Q26)
+  # ─────────────────────────────────────────────
+  env-var-scopes:
+    runs-on: ubuntu-latest
+    # JOB-LEVEL env vars (Q10, Q26)
+    env:
+      JOB_VAR: "I am available in this job only"
+
+    steps:
+      - name: Show all scopes
+        # STEP-LEVEL env var — smallest scope (Q18)
+        env:
+          STEP_VAR: "I am available in this step only"    # Q13, Q15 — correct syntax
+        run: |
+          echo "=== Environment Variable Scopes (Q10, Q18, Q26) ==="
+          echo "Global (top-level):  $GLOBAL_VAR"
+          echo "Job-level:           $JOB_VAR"
+          echo "Step-level:          $STEP_VAR"
+          echo ""
+          echo "=== Default GitHub Variables (Q23, Q30, Q37) ==="
+          echo "GITHUB_REPOSITORY: $GITHUB_REPOSITORY"     # Q23: owner/repo
+          echo "GITHUB_REF:        $GITHUB_REF"             # Q30: branch/tag ref
+          echo "GITHUB_ACTOR:      $GITHUB_ACTOR"           # Q37: who triggered
+          echo "GITHUB_RUN_NUMBER: $GITHUB_RUN_NUMBER"      # Q35: run number
+          echo "GITHUB_SHA:        $GITHUB_SHA"
+          echo "GITHUB_WORKSPACE:  $GITHUB_WORKSPACE"
+
+      - name: Step without STEP_VAR
+        run: |
+          echo "STEP_VAR is empty here: '$STEP_VAR'"
+          echo "But JOB_VAR still works: '$JOB_VAR'"
+          echo "And GLOBAL_VAR still works: '$GLOBAL_VAR'"
+
+  # ─────────────────────────────────────────────
+  # Job 2: GITHUB_ENV and GITHUB_OUTPUT (Q27, Q42)
+  # ─────────────────────────────────────────────
+  dynamic-vars:
+    runs-on: ubuntu-latest
+    outputs:
+      build_version: ${{ steps.set-output.outputs.version }}
+      build_status: ${{ steps.set-output.outputs.status }}
+
+    steps:
+      # Q27: Set env var for subsequent steps using GITHUB_ENV
+      - name: Set dynamic env var (Q27)
+        run: |
+          echo "DYNAMIC_VAR=set-via-github-env" >> $GITHUB_ENV
+          echo "BUILD_TIME=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_ENV
+
+      - name: Use dynamic env var in next step
+        run: |
+          echo "DYNAMIC_VAR: $DYNAMIC_VAR"
+          echo "BUILD_TIME: $BUILD_TIME"
+          echo ""
+          echo "NOTE: 'export VAR=val' would NOT persist to this step!"
+          echo "Only GITHUB_ENV persists across steps (Q27)"
+
+      # Q42: Set output parameter using GITHUB_OUTPUT
+      - name: Set output parameters (Q42)
+        id: set-output
+        run: |
+          echo "version=1.2.3" >> $GITHUB_OUTPUT
+          echo "status=success" >> $GITHUB_OUTPUT
+
+      - name: Use output in same job
+        run: |
+          echo "Version: ${{ steps.set-output.outputs.version }}"
+          echo "Status: ${{ steps.set-output.outputs.status }}"
+
+  # ─────────────────────────────────────────────
+  # Job 3: Access outputs from upstream job (Q49)
+  # ─────────────────────────────────────────────
+  use-outputs:
+    needs: dynamic-vars
+    runs-on: ubuntu-latest
+    steps:
+      # Q49: Access job output via needs context
+      - name: Access upstream job outputs (Q49)
+        run: |
+          echo "=== Accessing outputs from dynamic-vars job ==="
+          echo "Build version: ${{ needs.dynamic-vars.outputs.build_version }}"
+          echo "Build status:  ${{ needs.dynamic-vars.outputs.build_status }}"
+          echo ""
+          echo "Syntax: \${{ needs.JOB_NAME.outputs.OUTPUT_NAME }}"
+
+  # ─────────────────────────────────────────────
+  # Job 4: GITHUB_TOKEN usage (Q3, Q16, Q28)
+  # ─────────────────────────────────────────────
+  token-demo:
+    runs-on: ubuntu-latest
+    # Q16: GITHUB_TOKEN can create issues, publish packages
+    permissions:
+      issues: write
+
+    steps:
+      - name: Use GITHUB_TOKEN for API call (Q3, Q28)
+        run: |
+          echo "=== GITHUB_TOKEN Demo (Q3, Q16, Q28) ==="
+          echo "Making authenticated API call to list repo labels..."
+          curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/labels" \
+            | head -20
+          echo ""
+          echo "GITHUB_TOKEN can: create issues, publish packages, API calls"
+          echo "GITHUB_TOKEN cannot: create secrets, add org members"
