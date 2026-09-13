@@ -19,6 +19,7 @@ A structured deep-dive into the mathematics underlying modern ML and AI — from
 | 06 | [Quantum Mechanics](06_quantum_mechanics_and_field_theory.ipynb) | Hilbert spaces, Schrödinger equation, path integrals, second quantisation |
 | 07 | [General Relativity](07_general_relativity.ipynb) | Differential geometry, metric tensor, Einstein field equations, Schwarzschild solution |
 | 08 | [Metric, Normed, Banach & Hilbert Spaces](08_metric_normed_banach_hilbert_spaces.ipynb) | Parallelogram law, completeness, projection theorem, orthonormal bases, RKHS & the kernel trick, Lie algebras |
+| 09 | [Lie Groups & Lie Algebras](09_lie_groups_and_lie_algebras.ipynb) | Manifolds vs groups, deriving so(3), exp/log & Rodrigues, commutators & BCH, structure constants, optimisation on manifolds, SU(2) double cover |
 
 ---
 
@@ -37,6 +38,14 @@ The series is designed to build from practitioner-level statistics toward the ma
 
 **Notebook 03a/03b — Advanced Matrix Calculus**
 Goes beyond standard deep learning courses: Fréchet derivatives as coordinate-free operators, why schoolbook calculus breaks for matrix-valued functions, forward vs reverse-mode autodiff from first principles, and connections to variational calculus (brachistochrone, minimal surfaces).
+
+**Notebook 09 — Lie Groups & Lie Algebras**
+Why you cannot average two rotations, and what to do instead. Derives so(3) from R^T R = I
+rather than asserting it, verifies the commutator really is the infinitesimal
+non-commutativity of the group, recovers the Levi-Civita symbol as structure constants, and
+runs gradient descent over SO(3) in the Lie algebra to match the closed-form Kabsch solution.
+Also pins down where manifolds, tangent spaces and Riemannian structure sit relative to
+notebooks 07 and 08.
 
 **Notebook 08 — Metric to Hilbert Spaces**
 Answers the question the textbooks bury: *what does a Hilbert space actually buy you over
