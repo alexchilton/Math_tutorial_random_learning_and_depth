@@ -20,6 +20,7 @@ A structured deep-dive into the mathematics underlying modern ML and AI — from
 | 07 | [General Relativity](07_general_relativity.ipynb) | Differential geometry, metric tensor, Einstein field equations, Schwarzschild solution |
 | 08 | [Metric, Normed, Banach & Hilbert Spaces](08_metric_normed_banach_hilbert_spaces.ipynb) | Parallelogram law, completeness, projection theorem, orthonormal bases, RKHS & the kernel trick, Lie algebras |
 | 09 | [Lie Groups & Lie Algebras](09_lie_groups_and_lie_algebras.ipynb) | Manifolds vs groups, deriving so(3), exp/log & Rodrigues, commutators & BCH, structure constants, optimisation on manifolds, SU(2) double cover |
+| 10 | [Manifolds, Charts & the Axioms](10_manifolds_charts_and_the_axioms.ipynb) | Charts & transition maps, quotients, projective space, Hausdorff & second-countable counterexamples, partitions of unity, orientability, smooth structures, Riemannian metrics |
 
 ---
 
@@ -28,6 +29,10 @@ A structured deep-dive into the mathematics underlying modern ML and AI — from
 ```
 Statistical Intuition → Linear Algebra → Theoretical Probability → Advanced Optimisation → Physics
       01, 04               03, 03a, 03b            05                  03b, 02              06, 07
+
+Spaces & geometry:   08 (metric → Hilbert)
+                     10 (manifolds) ─┬─ + group structure ──→ 09 (Lie groups & algebras)
+                                     └─ + metric on T_pM ───→ 07 (Riemannian / GR)
 ```
 
 The series is designed to build from practitioner-level statistics toward the mathematical foundations that make modern deep learning (VAEs, diffusion models, transformers) formally rigorous.
@@ -38,6 +43,16 @@ The series is designed to build from practitioner-level statistics toward the ma
 
 **Notebook 03a/03b — Advanced Matrix Calculus**
 Goes beyond standard deep learning courses: Fréchet derivatives as coordinate-free operators, why schoolbook calculus breaks for matrix-valued functions, forward vs reverse-mode autodiff from first principles, and connections to variational calculus (brachistochrone, minimal surfaces).
+
+**Notebook 10 — Manifolds, Charts & the Axioms**
+Foundational to both 07 and 09 despite the number. Every condition in the definition of a
+manifold is justified by the specific monster it excludes, computed rather than described:
+the line with two origins where 1/n converges to two different points, the figure-eight whose
+crossing splits a punctured neighbourhood into four pieces instead of two, a cone that is a
+topological manifold but has no tangent plane, and R with the x^3 chart giving an incompatible
+smooth structure. Ends with a partition of unity assembling a global integral from four local
+ones, and a Riemannian metric making the great circle measurably shorter than the latitude.
+Computational companion to The Bright Side of Mathematics' 59-lecture Manifolds series.
 
 **Notebook 09 — Lie Groups & Lie Algebras**
 Why you cannot average two rotations, and what to do instead. Derives so(3) from R^T R = I
