@@ -18,6 +18,7 @@ A structured deep-dive into the mathematics underlying modern ML and AI — from
 | 05 | [Measure Theory & Probability](05_measure_theory_and_probability.ipynb) | σ-algebras, probability spaces, Radon-Nikodym, L^p spaces, Fubini's theorem |
 | 06 | [Quantum Mechanics](06_quantum_mechanics_and_field_theory.ipynb) | Hilbert spaces, Schrödinger equation, path integrals, second quantisation |
 | 07 | [General Relativity](07_general_relativity.ipynb) | Differential geometry, metric tensor, Einstein field equations, Schwarzschild solution |
+| 08a | [First Steps: Topology & Infinite Dimensions](08a_first_steps_topology_and_infinite_dimensions.ipynb) **← start here** | Topology vs topological space, functions *as* vectors, the five things that break in infinite dimensions |
 | 08 | [Metric, Normed, Banach & Hilbert Spaces](08_metric_normed_banach_hilbert_spaces.ipynb) | Parallelogram law, completeness, projection theorem, orthonormal bases, RKHS & the kernel trick, Lie algebras |
 | 09 | [Lie Groups & Lie Algebras](09_lie_groups_and_lie_algebras.ipynb) | Manifolds vs groups, deriving so(3), exp/log & Rodrigues, commutators & BCH, structure constants, optimisation on manifolds, SU(2) double cover |
 | 10 | [Manifolds, Charts & the Axioms](10_manifolds_charts_and_the_axioms.ipynb) | Charts & transition maps, quotients, projective space, Hausdorff & second-countable counterexamples, partitions of unity, orientability, smooth structures, Riemannian metrics |
@@ -61,6 +62,15 @@ non-commutativity of the group, recovers the Levi-Civita symbol as structure con
 runs gradient descent over SO(3) in the Lie algebra to match the closed-form Kabsch solution.
 Also pins down where manifolds, tangent spaces and Riemannian structure sit relative to
 notebooks 07 and 08.
+
+**Notebook 08a — First Steps** *(gentler prequel to 08)*
+Four questions, slowly, with numbers: what a topology actually is and why "open sets", in what
+sense a function *is* a vector (the dot product literally becoming an integral as the index
+goes continuous), what infinite-dimensional means, and the five conveniences of R^n that fail
+without one — completeness, norm equivalence, compactness, continuity of linear maps, and
+angles. Includes two corrections to commonly-taught sloppiness: continuity depends on the
+topology at *both* ends, and best sup-norm approximation by polynomials is unique
+(Chebyshev equioscillation), so "Banach can't do best approximation" is too strong.
 
 **Notebook 08 — Metric to Hilbert Spaces**
 Answers the question the textbooks bury: *what does a Hilbert space actually buy you over
