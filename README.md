@@ -18,6 +18,7 @@ A structured deep-dive into the mathematics underlying modern ML and AI — from
 | 05 | [Measure Theory & Probability](05_measure_theory_and_probability.ipynb) | σ-algebras, probability spaces, Radon-Nikodym, L^p spaces, Fubini's theorem |
 | 06 | [Quantum Mechanics](06_quantum_mechanics_and_field_theory.ipynb) | Hilbert spaces, Schrödinger equation, path integrals, second quantisation |
 | 07 | [General Relativity](07_general_relativity.ipynb) | Differential geometry, metric tensor, Einstein field equations, Schwarzschild solution |
+| 08 | [Metric, Normed, Banach & Hilbert Spaces](08_metric_normed_banach_hilbert_spaces.ipynb) | Parallelogram law, completeness, projection theorem, orthonormal bases, RKHS & the kernel trick, Lie algebras |
 
 ---
 
@@ -36,6 +37,14 @@ The series is designed to build from practitioner-level statistics toward the ma
 
 **Notebook 03a/03b — Advanced Matrix Calculus**
 Goes beyond standard deep learning courses: Fréchet derivatives as coordinate-free operators, why schoolbook calculus breaks for matrix-valued functions, forward vs reverse-mode autodiff from first principles, and connections to variational calculus (brachistochrone, minimal surfaces).
+
+**Notebook 08 — Metric to Hilbert Spaces**
+Answers the question the textbooks bury: *what does a Hilbert space actually buy you over
+ordinary linear algebra?* Built by breaking things — the parallelogram law tested numerically
+across p-norms (only p=2 survives), a Cauchy sequence of continuous functions escaping its own
+space, non-unique nearest points in L1 and L-infinity, Gibbs phenomenon as L2-vs-uniform
+convergence, and the kernel trick shown to be literally an inner product. Closes with where
+Lie algebras sit relative to all of it.
 
 **Notebook 05 — Measure Theory**
 Rigorous treatment of why continuous random variables have P(X=x)=0, convergence theorems, and the Radon-Nikodym theorem — the theoretical backbone of probability that most ML courses skip.
