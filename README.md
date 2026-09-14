@@ -11,7 +11,7 @@ A structured deep-dive into the mathematics underlying modern ML and AI — from
 |---|-------|-------------|
 | 01 | [Statistical Foundations](01_statistical_foundations.ipynb) | Law of Large Numbers, estimators, Bessel's correction, OLS regression, correlation |
 | 02 | [Information Theory & XAI](02_information_theory_and_xai.ipynb) | Shannon entropy, KL divergence, mutual information, explainable AI applications |
-| 02a | [Approximating KL Divergence](02a_approximating_kl_divergence.ipynb) | Monte-Carlo KL estimators k1/k2/k3, bias vs variance, f-divergences, control variates, Bregman divergence, PPO/RLHF |
+| 02a | [Approximating KL Divergence](02a_approximating_kl_divergence.ipynb) | KL as wasted bits, Monte-Carlo estimators k1/k2/k3, bias vs variance, f-divergences, control variates, **ELBO & VAEs**, PPO/RLHF |
 | 03 | [Matrix & Tensor Calculus](03_matrix_tensor_calculus_regression.ipynb) | Linear transformations, eigendecomposition, SVD, covariance matrices |
 | 03a | [Advanced Matrix Calculus I](03a_advanced_matrix_calculus.ipynb) | Fréchet derivatives, Jacobians, forward/reverse-mode AD, Kronecker products |
 | 03b | [Advanced Matrix Calculus II](03b_advanced_matrix_calculus_applications.ipynb) | Hessians, Newton's method, Gauss-Newton, reparameterisation trick, Euler-Lagrange |
@@ -68,7 +68,9 @@ notebooks 07 and 08.
 A beginner's walk through John Schulman's [kl-approx](http://joschu.net/blog/kl-approx.html)
 post, with every claim recomputed. Starts from KL on a two-outcome coin, builds bias vs
 variance from scratch, motivates control variates on a toy problem with no KL in it, and
-arrives at k3 = (r-1) - log r. Reproduces both of the post's tables. Adds two things the post
+arrives at k3 = (r-1) - log r. Reproduces both of the post's tables. Includes the
+information-theoretic reading (KL = extra bits wasted by coding q-data with a p-code) and a
+full ELBO/VAE section, since that is where most people meet KL first. Adds two things the post
 does not: the p/q convention trap (its prose and its code disagree, invisibly for
 equal-variance Gaussians), and the condition for these estimators to work at all -- E_q[r^2]
 must be finite, which for Gaussians means sigma_p < sqrt(2) sigma_q.
